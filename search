@@ -75,7 +75,7 @@ function check_terms()
 if [ $1 == "k" ] || [ $1 == "-k" ]
 then
 	echo "Keeping previous result."
-	check_terms
+	check_terms $1 $2
 else
         rm $list_file 2> /dev/null
 fi
@@ -86,7 +86,7 @@ PRINT_ALL_RESULTS=""
 if [ $1 == "p" ] || [ $1 == "-p" ]
 then
 	PRINT_ALL_RESULTS=true
-	check_terms
+	check_terms $1 $2
 fi
 
 
@@ -96,10 +96,10 @@ function search()
 	if [ -r $list_file ] && [ -s $list_file ]
 	then
 	        #echo "Searching again. (The "$list_file" file exists)"
-		grep -e $1 $(cat $list_file) -l > $list_file
+		grep -e $1 $(cat $list_file) -l > $list_file --exclude-dir={node_modules,.git,.vscode}
 	else
 		#echo "Searching for the first time. (The "$list_file" file does not exist or is empty)"
-		grep -e $1 -r ./ -l > $list_file
+		grep -e $1 -r ./ -l > $list_file --exclude-dir={node_modules,.git,.vscode}
 	fi
 	if [ $PRINT_ALL_RESULTS ]
 	then
