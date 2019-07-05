@@ -34,6 +34,7 @@ then
 else
         echo "The "$alias_file" file does not exists. Installing "$this_file" alias in ~/.bashrc :)"
 	echo 'alias '$this_file'='$alias_file >> ~/.bashrc
+	echo 'alias '$this_file'='$alias_file >> ~/.zshrc 2> /dev/null
 	cp $this_file $alias_file
 	chmod u+r+w+x $alias_file
 	exit
